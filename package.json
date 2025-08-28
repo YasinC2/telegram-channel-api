@@ -1,0 +1,14 @@
+{
+  "name": "telegram-channel-api",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+		"deploy": "wrangler deploy",
+    "publish": "wrangler publish"
+  },
+  "dependencies": {
+    "node-html-markdown": "^1.3.0",
+    "node-html-parser": "^7.0.1"
+  }
+}
