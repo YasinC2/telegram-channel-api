@@ -30,7 +30,7 @@ export function parseChannelHTML(html, options = {}) {
   const messages = messageElements
     .slice(0, 20) // Limit to 20 messages
     .map(element => parseMessageElement(element, options))
-    .reverse(); // Make index 1 = most recent
+    // .reverse(); // Make index 1 = most recent
   
   // console.log(`----> messages: ${JSON.stringify(messages).substring(0, 500)}...`); // Log first 500 chars of messages
     
@@ -60,7 +60,7 @@ function extractChannelInfo(root) {
  */
 function parseMessageElement(element, options) {
   const message = {
-    permalink: element.querySelector('.tgme_widget_message_footer .tgme_widget_message_date > a')?.getAttribute('href') || '',
+    permalink: element.querySelector('.tgme_widget_message_footer a.tgme_widget_message_date')?.getAttribute('href') || '',
     author_name: element.querySelector('.tgme_widget_message_author .tgme_widget_message_owner_name')?.textContent.trim() || '',
     date: normalizeDate(element.querySelector('.tgme_widget_message_date time')?.getAttribute('datetime') || ''),
     views: parseCount(element.querySelector('.tgme_widget_message_views')?.textContent.trim())
@@ -72,7 +72,9 @@ function parseMessageElement(element, options) {
   // Extract message ID from permalink
   const urlMatch = message.permalink.match(/\/(\d+)$/);
   message.id = urlMatch ? urlMatch[1] : '';
-  
+  // console.log(`urlMatch: ${urlMatch} -- message.id: ${message.id}`);
+
+
   // Extract and convert message text
   const textElement = element.querySelector('.tgme_widget_message_text.js-message_text');
   // console.log(`--> textElement: ${textElement}`);
@@ -121,7 +123,7 @@ function parseMessageElement(element, options) {
   
   // Remove empty fields
   Object.keys(message).forEach(key => {
-    if (message[key] === null || message[key] === undefined || message[key] === '') {
+    if (message[key] === null || message[key] === undefined || message[key] === '' || (Array.isArray(message[key]) && message[key].length === 0)) {
       delete message[key];
     }
   });
@@ -162,6 +164,16 @@ function extractMedia(element) {
     return {
       type: 'video',
       url: videoElement.getAttribute('src') || ''
+    };
+  }
+
+  // Sticker Video
+  const stickerVideoElement = element.querySelector('.tgme_widget_message_videosticker video');
+  // console.log(`--> stickerVideoElement: ${stickerVideoElement}`);
+  if (stickerVideoElement) {
+    return {
+      type: 'sticker_video',
+      url: stickerVideoElement.getAttribute('src') || ''
     };
   }
   

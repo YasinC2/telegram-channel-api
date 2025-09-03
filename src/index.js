@@ -19,8 +19,8 @@ export default {
       const url = new URL(request.url);
       // console.log(`Received request: ${request.method} ${request.url}`);
       
-      // Only handle /api/messages path
-      if (url.pathname !== '/api/messages') {
+      // Only handle /api path
+      if (url.pathname !== '/api') {
         return new Response('Not Found', { status: 404 });
       }
       

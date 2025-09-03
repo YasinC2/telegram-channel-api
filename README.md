@@ -25,7 +25,7 @@ npm run publish
 ## API Usage
 
 ### Endpoint
-`GET /api/messages`
+`GET /api`
 
 ### Parameters
 - `channel_id` (required unless using message_url): Telegram channel username
@@ -39,27 +39,27 @@ npm run publish
 
 Get last 20 messages from a channel:
 ```bash
-curl "http://127.0.0.1:8787/api/messages?channel_id=bt_gold"
+curl "http://127.0.0.1:8787/api?channel_id=bt_gold"
 ```
 
 Get the most recent message:
 ```bash
-curl "http://127.0.0.1:8787/api/messages?channel_id=bt_gold&message_index=1"
+curl "http://127.0.0.1:8787/api?channel_id=bt_gold&message_index=1"
 ```
 
 Get messages 1-5:
 ```bash
-curl "http://127.0.0.1:8787/api/messages?channel_id=bt_gold&range=1-5"
+curl "http://127.0.0.1:8787/api?channel_id=bt_gold&range=1-5"
 ```
 
 Get specific message by URL:
 ```bash
-curl "http://127.0.0.1:8787/api/messages?message_url=https://t.me/bt_gold/2891"
+curl "http://127.0.0.1:8787/api?message_url=https://t.me/bt_gold/2891"
 ```
 
 Exclude reactions:
 ```bash
-curl "http://127.0.0.1:8787/api/messages?channel_id=bt_gold&include_reactions=false"
+curl "http://127.0.0.1:8787/api?channel_id=bt_gold&include_reactions=false"
 ```
 
 ## Response Schema
