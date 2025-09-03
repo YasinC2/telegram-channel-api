@@ -2,7 +2,7 @@
 
 This project provides an API to scrape public Telegram channels and return structured JSON data of the last 20 messages. It runs on Cloudflare Workers and uses:
 - `node-html-parser` for HTML parsing
-- `turndown` for converting HTML to Markdown
+- `node-html-markdown` for converting HTML to Markdown
 
 ## Installation
 
@@ -118,5 +118,5 @@ curl "http://127.0.0.1:8787/api?channel_id=bt_gold&include_reactions=false"
 
 ## Credits
 - [node-html-parser](https://github.com/taoqf/node-html-parser)
-- [turndown](https://github.com/mixmark-io/turndown)
+- [node-html-markdown](https://github.com/crosstype/node-html-markdown)
 - Cloudflare Workers
