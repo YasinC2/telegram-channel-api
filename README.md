@@ -19,7 +19,7 @@ npm run dev
 
 4. Deploy to Cloudflare Workers:
 ```bash
-npm run publish
+npm run deploy
 ```
 
 ## API Usage
@@ -31,7 +31,7 @@ npm run publish
 - `channel_id` (required unless using message_url): Telegram channel username
 - `message_index` (optional): Specific message index (1-20, 1=most recent)
 - `range` (optional): Message range (e.g., "1-5")
-- `message_url` (optional): Full URL of a specific message
+<!-- - `message_url` (optional): Full URL of a specific message -->
 - `include_reactions` (optional, default=true): Include reactions in response
 - `include_replies` (optional, default=true): Include reply information
 
@@ -39,27 +39,28 @@ npm run publish
 
 Get last 20 messages from a channel:
 ```bash
-curl "http://127.0.0.1:8787/api?channel_id=bt_gold"
+curl "http://127.0.0.1:8787/api?channel_id=telegram"
 ```
 
 Get the most recent message:
 ```bash
-curl "http://127.0.0.1:8787/api?channel_id=bt_gold&message_index=1"
+curl "http://127.0.0.1:8787/api?channel_id=telegram&message_index=1"
 ```
 
 Get messages 1-5:
 ```bash
-curl "http://127.0.0.1:8787/api?channel_id=bt_gold&range=1-5"
+curl "http://127.0.0.1:8787/api?channel_id=telegram&range=1-5"
 ```
 
+<!-- It's not working right now.
 Get specific message by URL:
 ```bash
-curl "http://127.0.0.1:8787/api?message_url=https://t.me/bt_gold/2891"
-```
+curl "http://127.0.0.1:8787/api?message_url=https://t.me/telegram/2891"
+``` -->
 
 Exclude reactions:
 ```bash
-curl "http://127.0.0.1:8787/api?channel_id=bt_gold&include_reactions=false"
+curl "http://127.0.0.1:8787/api?channel_id=telegram&include_reactions=false"
 ```
 
 ## Response Schema

@@ -30,7 +30,7 @@ export function parseChannelHTML(html, options = {}) {
   const messages = messageElements
     .slice(0, 20) // Limit to 20 messages
     .map(element => parseMessageElement(element, options))
-    // .reverse(); // Make index 1 = most recent
+    .reverse(); // Make index 1 = most recent
   
   // console.log(`----> messages: ${JSON.stringify(messages).substring(0, 500)}...`); // Log first 500 chars of messages
     

@@ -49,22 +49,22 @@ export default {
       // console.log(`channel_id: ${channel_id}, message_index: ${message_index}, range: ${range}, message_url: ${message_url}`);
       
       // Handle message_url parameter (highest priority)
-      if (message_url) {
-        try {
-          const { channel_id: urlChannel, message_id } = parseMessageUrl(message_url);
-          targetChannel = urlChannel;
-          messageIds = [parseInt(message_id)];
-          // console.log(`targetChannel: ${targetChannel}, messageIds: ${messageIds}`);
+      // if (message_url) {
+      //   try {
+      //     const { channel_id: urlChannel, message_id } = parseMessageUrl(message_url);
+      //     targetChannel = urlChannel;
+      //     messageIds = [parseInt(message_id)];
+      //     // console.log(`targetChannel: ${targetChannel}, messageIds: ${messageIds}`);
           
-        } catch (error) {
-          return jsonResponse({
-            error: true,
-            message: error.message
-          }, 400);
-        }
-      } 
+      //   } catch (error) {
+      //     return jsonResponse({
+      //       error: true,
+      //       message: error.message
+      //     }, 400);
+      //   }
+      // }
       // Handle range parameter
-      else if (range) {
+      if (range) {
         try {
           const [start, end] = validateRange(range);
           // Create array of message indices (1-based)
@@ -105,17 +105,28 @@ export default {
         
         const { channel, messages } = parseChannelHTML(html, options);
         // console.log(`Parsed channel: ${JSON.stringify(channel)}, messages: ${JSON.stringify(messages)}`);
+        console.log(`messages: ${messages}`);
         
         
         // If we have specific message IDs to return
         let resultMessages = [];
+
+        console.log(`messageIds: ${messageIds}`);
+        
+
         if (messageIds.length > 0) {
           // Since messages are stored with index 0 = oldest, we need to convert
           // 1-based index to 0-based array position (reverse order)
           resultMessages = messageIds.map(id => {
+            console.log(`Processing message ID: ${id}`);
+            
             // Convert 1-based index to 0-based position (most recent is at MAX_MESSAGES-1)
-            const position = MAX_MESSAGES - id;
-            const message = messages[position];
+            // const position = MAX_MESSAGES - id;
+            // const message = messages[position];
+            const message = messages[id-1];
+            // console.log(`position: ${position}, message: ${JSON.stringify(message)}`);
+            console.log(`message: ${JSON.stringify(message)}`);
+            
             
             if (!message) {
               throw new Error(`Message index ${id} not found in last ${MAX_MESSAGES} messages`);
