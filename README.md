@@ -28,12 +28,12 @@ npm run deploy
 `GET /api`
 
 ### Parameters
-- `channel_id` (required unless using message_url): Telegram channel username
+- `channel_id` (required): Telegram channel username
 - `message_index` (optional): Specific message index (1-20, 1=most recent)
 - `range` (optional): Message range (e.g., "1-5")
-<!-- - `message_url` (optional): Full URL of a specific message -->
 - `include_reactions` (optional, default=true): Include reactions in response
 - `include_replies` (optional, default=true): Include reply information
+<!-- - `message_url` (optional): Full URL of a specific message -->
 
 ### Examples
 
@@ -52,16 +52,17 @@ Get messages 1-5:
 curl "http://127.0.0.1:8787/api?channel_id=telegram&range=1-5"
 ```
 
+Exclude reactions:
+```bash
+curl "http://127.0.0.1:8787/api?channel_id=telegram&include_reactions=false"
+```
+
 <!-- It's not working right now.
 Get specific message by URL:
 ```bash
 curl "http://127.0.0.1:8787/api?message_url=https://t.me/telegram/2891"
 ``` -->
 
-Exclude reactions:
-```bash
-curl "http://127.0.0.1:8787/api?channel_id=telegram&include_reactions=false"
-```
 
 ## Response Schema
 
